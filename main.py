@@ -5,11 +5,12 @@ import sys
 
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
+from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-TOKEN = "7559845248:AAFg3exmH5T9mVs-EHigaRRXB15SUBuCz7M"
+TOKEN = "7858891892:AAF1buSZKi8zu9epNqdDe3yiVfJ931Bvi38"
 
 dp = Dispatcher()
 
@@ -36,7 +37,9 @@ async def message_handler(msg: Message) -> None:
         await msg.answer(messages.get(answer_text))
 
 async def main() -> None:
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    P = "http://proxy.server:3128"
+    session = AiohttpSession(proxy=P)
+    bot = Bot(token=TOKEN, session=session,default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
     await dp.start_polling(bot)
 
